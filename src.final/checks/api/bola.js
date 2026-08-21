@@ -1,0 +1,3 @@
+const{get}=require('../../http.js'),{Finding}=require('../../finding.js'),{URL}=require('node:url');
+async function checkBOLA(t){const f=[],p=new URL(t).pathname,m=p.match(/\/(\d+)(?:\/|$)/);if(m){const id=parseInt(m[1]);for(const tid of[id+1,id-1]){const u=new URL(t);u.pathname=p.replace(/\/\d+/,`/${tid}`);try{const r=await get(u.href,{timeout:5000});if(r.status===200&&r.body.length>50){f.push(new Finding({title:'Possible BOLA',severity:'high',evidence:`ID ${id} -> ${tid} returned data`,remediation:'Check object-level authorization.',category:'bola',cwe:'CWE-639'}));break;}}catch{}}}return f;}
+module.exports={checkBOLA};
