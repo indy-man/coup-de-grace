@@ -1,0 +1,2 @@
+class RateLimiter{constructor(rps=10){this.interval=1000/rps;this.last=0;this.queue=[];this.busy=false;}async acquire(){return new Promise(r=>{this.queue.push(r);if(!this.busy)this._run();});}async _run(){this.busy=true;while(this.queue.length){const w=this.interval-(Date.now()-this.last);if(w>0)await new Promise(r=>setTimeout(r,w));this.last=Date.now();this.queue.shift()();}this.busy=false;}}
+module.exports={RateLimiter};
