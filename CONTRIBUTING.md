@@ -10,3 +10,4 @@ Adding a check:
 4. Add tests
 
 Rules: every check is non-destructive. We scan, not attack. Include CWE refs. Provide fixes.
+
