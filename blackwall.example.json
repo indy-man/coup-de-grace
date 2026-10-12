@@ -1,1 +1,2 @@
 {"timeout":10000,"checks":{"web":{"enabled":true},"agent":{"enabled":true},"api":{"enabled":true},"infra":{"enabled":false}},"output":{"format":"text"},"rateLimit":{"requestsPerSecond":10}}
+
