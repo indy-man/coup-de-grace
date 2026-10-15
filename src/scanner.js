@@ -15,3 +15,4 @@ async run(){const start=Date.now();for(let i=0;i<this.checks.length;i++){const c
 format(r,fmt='text',opts={}){if(fmt==='json')return formatJSON(r,opts);if(fmt==='md')return formatMarkdown(r);return formatText(r);}}
 module.exports={Scanner,CHECK_REGISTRY};
 // api checks wired
+// mcp+output registered
