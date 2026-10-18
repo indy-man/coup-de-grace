@@ -1,0 +1,2 @@
+const{describe,it}=require('node:test'),assert=require('node:assert'),{detectType}=require('../src/detect.js');
+describe('detectType',()=>{it('api',async()=>{assert.strictEqual(await detectType('https://x.com/api/v1/u'),'api');});it('agent',async()=>{assert.strictEqual(await detectType('https://x.com/v1/chat/completions'),'agent');});it('web default',async()=>{assert.strictEqual(await detectType('https://x.com/about'),'web');});});
