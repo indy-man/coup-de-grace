@@ -1,0 +1,3 @@
+const{get}=require('../../http.js'),{Finding}=require('../../finding.js'),{URL}=require('node:url');
+async function checkCloudStorage(t){const f=[],h=new URL(t).hostname.split('.')[0];for(const url of[`https://${h}.s3.amazonaws.com`,`https://storage.googleapis.com/${h}`]){try{const r=await get(url,{timeout:5000});if(r.status===200&&(r.body.includes('ListBucketResult')||r.body.includes('ListObjects')))f.push(new Finding({title:'Cloud bucket publicly listable',severity:'high',evidence:url,remediation:'Restrict bucket access.',category:'cloud-storage',cwe:'CWE-732'}));}catch{}}return f;}
+module.exports={checkCloudStorage};
