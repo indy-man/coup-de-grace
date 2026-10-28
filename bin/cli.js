@@ -7,3 +7,4 @@ if(values.help||(!values.target&&!positionals.length)){console.log(`\n  blackwal
 const target=values.target||positionals[0];values.timeout=parseInt(values.timeout,10);values.minSeverity=values['min-severity'];
 run({target,...values}).catch(e=>{console.error('scan failed:',e.message);process.exit(1);});
 // agent type support
+// --skip
