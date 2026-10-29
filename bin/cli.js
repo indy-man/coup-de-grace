@@ -8,3 +8,4 @@ const target=values.target||positionals[0];values.timeout=parseInt(values.timeou
 run({target,...values}).catch(e=>{console.error('scan failed:',e.message);process.exit(1);});
 // agent type support
 // --skip
+// --only
