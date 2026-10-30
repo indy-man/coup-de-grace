@@ -9,3 +9,4 @@ run({target,...values}).catch(e=>{console.error('scan failed:',e.message);proces
 // agent type support
 // --skip
 // --only
+// --min-severity
