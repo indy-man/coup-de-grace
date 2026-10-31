@@ -12,3 +12,6 @@ Changelog
 
 0.1.0 (2026-08-21)
   - initial release, CLI, basic web scanning
+
+0.5.0 (upcoming)
+  - profiles, webhook, indirect injection, CLI flags
