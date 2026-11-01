@@ -10,3 +10,4 @@ run({target,...values}).catch(e=>{console.error('scan failed:',e.message);proces
 // --skip
 // --only
 // --min-severity
+// --profile
