@@ -14,5 +14,3 @@ constructor(t,type,opts={}){this.target=t;this.type=type;this.opts=opts;this.fin
 async run(){const start=Date.now();for(let i=0;i<this.checks.length;i++){const ck=this.checks[i];if(this.opts.onProgress)this.opts.onProgress({phase:ck.name,progress:Math.round(i/this.checks.length*100),check:i+1,total:this.checks.length});try{const r=await ck.fn(this.target,this.opts);this.findings.push(...r);}catch{}}if(this.opts.onProgress)this.opts.onProgress({phase:'complete',progress:100});const results={target:this.target,type:this.type,findings:this.findings,duration:((Date.now()-start)/1000).toFixed(1),checksRun:this.checks.length,timestamp:new Date().toISOString()};if(this.opts.minSeverity){const idx=SEVERITIES.indexOf(this.opts.minSeverity);if(idx>=0)results.findings=results.findings.filter(f=>SEVERITIES.indexOf(f.severity)<=idx);}return results;}
 format(r,fmt='text',opts={}){if(fmt==='json')return formatJSON(r,opts);if(fmt==='md')return formatMarkdown(r);return formatText(r);}}
 module.exports={Scanner,CHECK_REGISTRY};
-// api checks wired
-// mcp+output registered
