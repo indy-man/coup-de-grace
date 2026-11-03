@@ -1,2 +1,0 @@
-const{describe,it}=require('node:test'),assert=require('node:assert'),{Scanner,CHECK_REGISTRY}=require('../src/scanner.js');
-describe('Scanner',()=>{it('loads web checks',()=>{assert.ok(new Scanner('https://x.com','web').checks.length>0);});it('loads agent checks',()=>{assert.ok(new Scanner('https://x.com','agent').checks.some(c=>c.name==='prompt-injection'));});it('has all types',()=>{assert.ok(CHECK_REGISTRY.web&&CHECK_REGISTRY.agent&&CHECK_REGISTRY.api&&CHECK_REGISTRY.infra);});});

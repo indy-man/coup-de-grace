@@ -1,9 +1,11 @@
-blackwall
-=========
+coup de grace
+============
 
-security scanner for websites, APIs, and AI agents.
+<p align="center"><img src="assets/banner.gif" width="100%"></p>
 
-most security scanners only test traditional web apps. blackwall also tests
+Security scanner for websites, APIs, and AI agents.
+
+Most security scanners only test traditional web apps. Coup de Grace also tests
 AI agents and MCP servers for prompt injection, tool misuse, system prompt
 leakage, and other attacks that almost nobody is scanning for yet.
 
@@ -11,17 +13,20 @@ leakage, and other attacks that almost nobody is scanning for yet.
 INSTALL
 -------
 
-    npm install -g blackwall
+    git clone https://github.com/indy-man/coup-de-grace.git
+    cd coup-de-grace
+    npm install
+    npm link
 
 
 QUICK START
 -----------
 
-    blackwall https://your-site.com
-    blackwall https://api.example.com/v1 --type api
-    blackwall https://your-agent.com/chat --type agent
-    blackwall https://example.com -f json -o report.json
-    blackwall https://example.com --profile quick
+    coupde https://your-site.com
+    coupde https://api.example.com/v1 --type api
+    coupde https://your-agent.com/chat --type agent
+    coupde https://example.com -f json -o report.json
+    coupde https://example.com --profile quick
 
 
 SCAN TYPES
@@ -30,7 +35,7 @@ SCAN TYPES
 web       SQL injection, XSS, CORS, cookies, exposed files, SSRF,
           open redirects, TLS, headers, clickjacking
 
-agent     prompt injection (7 vectors), system prompt extraction,
+agent     Prompt injection (7 vectors), system prompt extraction,
           tool misuse, data exfiltration, permission escalation,
           excessive autonomy, context poisoning, output handling,
           MCP tool exposure, indirect injection
@@ -38,65 +43,65 @@ agent     prompt injection (7 vectors), system prompt extraction,
 api       BOLA, authentication bypass, rate limiting, JWT misconfig,
           mass assignment, GraphQL introspection, TLS, CORS
 
-infra     port scanning, DNS (SPF/DMARC), default credentials,
+infra     Port scanning, DNS (SPF/DMARC), default credentials,
           cloud storage misconfig, TLS, headers
 
 
 AI AGENT TESTING
 ----------------
 
-this is the part that matters. agents are being deployed everywhere and
-almost nobody is testing them for security. blackwall sends crafted
+This is the part that matters. Agents are being deployed everywhere and
+almost nobody is testing them for security. Coup de Grace sends crafted
 prompts to your agent and checks whether it:
 
-  - leaks its system prompt when asked the right way
-  - executes tools it shouldn't (file reads, shell commands, HTTP to internal IPs)
-  - hands over environment variables, API keys, or database strings
-  - accepts fake privilege escalation ("you are now admin")
-  - takes destructive actions without asking for confirmation
-  - trusts injected system messages from user input
-  - processes instructions embedded in external content
-  - exposes its MCP tool list without authentication
+  - Leaks its system prompt when asked the right way
+  - Executes tools it shouldn't (file reads, shell commands, HTTP to internal IPs)
+  - Hands over environment variables, API keys, or database strings
+  - Accepts fake privilege escalation ("you are now admin")
+  - Takes destructive actions without asking for confirmation
+  - Trusts injected system messages from user input
+  - Processes instructions embedded in external content
+  - Exposes its MCP tool list without authentication
 
-to test an agent, point blackwall at its chat endpoint:
+To test an agent, point it at the chat endpoint:
 
-    blackwall https://your-agent.com/v1/chat/completions --type agent
+    coupde https://your-agent.com/v1/chat/completions --type agent
 
-works with OpenAI, Anthropic, or custom JSON chat formats.
+Works with OpenAI, Anthropic, or custom JSON chat formats.
 
 
 CLI OPTIONS
 -----------
 
-    -t, --target       target URL
+    -t, --target       Target URL
     --type             auto, web, api, agent, infra (default: auto)
-    -o, --output       output file (default: stdout)
+    -o, --output       Output file (default: stdout)
     -f, --format       text, json, md (default: text)
-    --skip             skip checks (comma-separated)
-    --only             run only these checks
+    --skip             Skip checks (comma-separated)
+    --only             Run only these checks
     --profile          quick, standard, deep
-    --min-severity     filter: critical, high, medium, low
-    --webhook          POST results to URL
-    --stream           stream JSON findings line by line
-    --timeout          request timeout ms (default: 10000)
-    --version          print version
-    -h, --help         show help
+    --min-severity     Filter: critical, high, medium, low
+    --webhook          POST results to a URL when done
+    --stream           Stream JSON findings line by line
+    --timeout          Request timeout in ms (default: 10000)
+    --version          Print version
+    -h, --help         Show help
 
 
 PROFILES
 --------
 
-quick       TLS + headers only. fast.
-standard    all web checks. the default.
-deep        everything including slower checks.
+quick       TLS + headers only. Fast.
+standard    All web checks. The default.
+deep        Everything including slower checks.
 
-    blackwall https://example.com --profile deep
+    coupde https://example.com --profile deep
 
 
 CONFIGURATION
 -------------
 
-create blackwall.json or .blackwallrc in your project:
+Create a coupde.json or .coupderc in your project root:
 
     {
       "timeout": 10000,
@@ -105,10 +110,11 @@ create blackwall.json or .blackwallrc in your project:
     }
 
 
-PROGRAMMATIC API
-----------------
+USING AS A LIBRARY
+------------------
 
-    const { scan } = require('blackwall');
+    const { scan } = require('./src/api.js');
+
     const results = await scan('https://example.com', { type: 'web' });
     console.log(results.findings);
 
@@ -116,15 +122,15 @@ PROGRAMMATIC API
 CI INTEGRATION
 --------------
 
-    blackwall https://staging.example.com --min-severity high -f json -o results.json
-    blackwall https://staging.example.com --webhook https://ci.example.com/hook
+    coupde https://staging.example.com --min-severity high -f json -o results.json
+    coupde https://staging.example.com --webhook https://your-ci.com/hook
 
 
 CONTRIBUTING
 ------------
 
-see CONTRIBUTING.md. checks must be non-destructive. include CWE refs.
-npm test to run tests.
+See CONTRIBUTING.md. Checks must be non-destructive. Include CWE refs.
+Run tests with: npm test
 
 
 LICENSE

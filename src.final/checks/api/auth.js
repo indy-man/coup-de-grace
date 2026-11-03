@@ -1,3 +1,0 @@
-const{get}=require('../../http.js'),{Finding}=require('../../finding.js');
-async function checkAPIAuth(t){const f=[];try{const r=await get(t,{timeout:8000});if(r.status===200)f.push(new Finding({title:'API accessible without auth',severity:'high',evidence:`GET -> ${r.status}`,remediation:'Require authentication.',category:'api-auth',cwe:'CWE-306'}));for(const tok of['admin','test','null']){const r2=await get(t,{headers:{Authorization:`Bearer ${tok}`},timeout:5000});if(r2.status===200){f.push(new Finding({title:'API accepts trivial token',severity:'critical',evidence:`Bearer ${tok} -> 200`,remediation:'Validate tokens properly.',category:'api-auth',cwe:'CWE-287'}));break;}}}catch{}return f;}
-module.exports={checkAPIAuth};

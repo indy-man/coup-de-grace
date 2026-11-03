@@ -1,3 +1,0 @@
-const{SEVERITIES}=require('../finding.js');
-function formatText(r){const l=['','blackwall scan report',`target: ${r.target}`,`type: ${r.type}`,`date: ${new Date().toISOString()}`,`checks: ${r.checksRun||'?'}`,`duration: ${r.duration||'?'}s`,`findings: ${r.findings.length}`,''];if(!r.findings.length){l.push('no vulnerabilities found.');return l.join('\n');}for(const s of SEVERITIES){const g=r.findings.filter(f=>f.severity===s);if(!g.length)continue;l.push(`[${s.toUpperCase()}] (${g.length})`);for(const f of g){l.push(`  ${f.title}`);if(f.description)l.push(`    ${f.description}`);if(f.evidence)l.push(`    evidence: ${f.evidence}`);if(f.remediation)l.push(`    fix: ${f.remediation}`);l.push('');}}return l.join('\n');}
-module.exports={formatText};

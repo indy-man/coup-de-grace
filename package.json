@@ -1,1 +1,20 @@
-{"name":"blackwall","version":"0.5.0","description":"Security scanner for websites, APIs, and AI agents","main":"src/index.js","bin":{"blackwall":"./bin/cli.js"},"scripts":{"start":"node src/index.js","test":"node --test test/","lint":"eslint src/"},"keywords":["security","scanner","vulnerability","pentest","ai-agent"],"author":"indy-man","license":"MIT"}
+{
+  "name": "coup-de-grace",
+  "version": "0.5.0",
+  "description": "Security scanner for websites, APIs, and AI agents",
+  "main": "src/api.js",
+  "bin": {
+    "coupde": "./bin/cli.js"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node --test test/"
+  },
+  "keywords": ["security", "scanner", "vulnerability", "pentest", "ai-agent"],
+  "author": "indy-man",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/indy-man/coup-de-grace.git"
+  }
+}

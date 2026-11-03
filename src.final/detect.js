@@ -1,3 +1,0 @@
-const{URL}=require('node:url'),{head}=require('./http.js');
-async function detectType(target){try{const u=new URL(target);if(u.protocol==='mcp:'||u.protocol==='mcp+https:')return'agent';const p=u.pathname.toLowerCase();if(p.includes('/chat')||p.includes('/completions')||p.includes('/v1/messages'))return'agent';if(p.includes('/api/')||p.includes('/v1/')||p.includes('/v2/')||p.includes('/graphql'))return'api';try{const r=await head(target,{timeout:5000});if((r.headers['content-type']||'').includes('application/json'))return'api';}catch{}return'web';}catch{return'web';}}
-module.exports={detectType};

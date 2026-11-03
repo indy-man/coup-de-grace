@@ -1,3 +1,0 @@
-const{post}=require('../../http.js'),{Finding}=require('../../finding.js');
-async function checkMassAssignment(t){const f=[];for(const extra of[{role:'admin'},{isAdmin:true},{verified:true}]){try{const r=await post(t,JSON.stringify({username:'test',...extra}),{headers:{'Content-Type':'application/json'},timeout:8000});if(r.status>=200&&r.status<300&&!r.body.toLowerCase().includes('error')){const k=Object.keys(extra)[0];if(r.body.toLowerCase().includes(k.toLowerCase())){f.push(new Finding({title:`Mass assignment: ${k}`,severity:'high',remediation:'Whitelist allowed fields.',category:'mass-assignment',cwe:'CWE-915'}));break;}}}catch{}}return f;}
-module.exports={checkMassAssignment};

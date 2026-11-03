@@ -1,3 +1,0 @@
-const{get}=require('../../http.js'),{Finding}=require('../../finding.js');
-async function checkCookies(t){const f=[];try{const r=await get(t),raw=r.headers['set-cookie'];if(!raw)return f;const cookies=Array.isArray(raw)?raw:[raw];for(const c of cookies){const n=c.split('=')[0].trim(),l=c.toLowerCase();if(!l.includes('secure'))f.push(new Finding({title:`Cookie "${n}" missing Secure`,severity:'medium',category:'cookies',cwe:'CWE-614'}));if(!l.includes('httponly'))f.push(new Finding({title:`Cookie "${n}" missing HttpOnly`,severity:'medium',category:'cookies',cwe:'CWE-1004'}));if(!l.includes('samesite'))f.push(new Finding({title:`Cookie "${n}" missing SameSite`,severity:'low',category:'cookies',cwe:'CWE-352'}));}}catch{}return f;}
-module.exports={checkCookies};

@@ -1,3 +1,0 @@
-const{post}=require('../../http.js'),{Finding}=require('../../finding.js');
-async function checkGraphQL(t){const f=[];for(const ep of[t,t.replace(/\/$/,'')+'/graphql']){try{const r=await post(ep,'{"query":"{ __schema { types { name } } }"}',{headers:{'Content-Type':'application/json'},timeout:8000});if(r.status===200&&r.body.includes('__schema')){f.push(new Finding({title:'GraphQL introspection enabled',severity:'medium',evidence:`POST ${ep} -> schema visible`,remediation:'Disable introspection in production.',category:'graphql',cwe:'CWE-200'}));break;}}catch{}}return f;}
-module.exports={checkGraphQL};

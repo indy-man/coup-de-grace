@@ -1,4 +1,0 @@
-const{get}=require('../../http.js'),{Finding}=require('../../finding.js'),{URL}=require('node:url');
-const PL=['<script>alert(1)</script>','"><img src=x onerror=alert(1)>','<svg onload=alert(1)>'];
-async function checkXSS(t){const f=[],u=new URL(t),params=[...u.searchParams.entries()];if(!params.length)params.push(['q','test'],['search','test']);for(const[p]of params){for(const pl of PL){try{const tu=new URL(t);tu.searchParams.set(p,pl);const r=await get(tu.href,{timeout:8000});if(r.body.includes(pl)&&(r.headers['content-type']||'').includes('text/html')){f.push(new Finding({title:`Reflected XSS in "${p}"`,severity:'high',description:'Input reflected without encoding.',evidence:`Payload: ${pl}`,remediation:'Encode output. Use CSP.',category:'xss',cwe:'CWE-79'}));break;}}catch{}}}return f;}
-module.exports={checkXSS};

@@ -1,3 +1,0 @@
-const{describe,it}=require('node:test'),assert=require('node:assert'),{formatText}=require('../src/reporters/text.js'),{formatJSON}=require('../src/reporters/json.js'),{formatMarkdown}=require('../src/reporters/markdown.js'),{Finding}=require('../src/finding.js');
-const m={target:'https://t.com',type:'web',findings:[new Finding({title:'X',severity:'high'})],checksRun:1,duration:'0.1'};
-describe('Reporters',()=>{it('text',()=>{assert.ok(formatText(m).includes('t.com'));});it('json',()=>{assert.ok(JSON.parse(formatJSON(m)).findings.length===1);});it('md',()=>{assert.ok(formatMarkdown(m).includes('Scan Report'));});});
